@@ -12,31 +12,36 @@ using Xbim.Ifc2x3.GeometryResource;
 
 namespace IFCMapper.Geomterical_Entities
 {
-    class DirectionVector
+    class DirectionVector3D
     {
         private double x;
         private double y;
         private double z;
-        private IfcDirection direction;
+        private IfcDirection ifcDirection;
 
         public double X => x;
         public double Y => y;
         public double Z => z;
 
         public IfcStore Model { get; set; }
-        public IfcDirection IfcDirection => direction;
+        public IfcDirection IfcDirection => ifcDirection;
 
-        public DirectionVector(IfcStore model, double x, double y, double z)
+        public DirectionVector3D(IfcStore model, double x, double y, double z)
         {
             this.Model = model;
             this.x = x;
             this.y = y;
             this.z = z;
-            direction = model.Instances.New<IfcDirection>(p =>
-              {
-                  p.SetXYZ(x, y, z);
-              }
-             );
+            IfcDirection result = model.Instances.OfType<IfcDirection>().Where(d => d.X == x && d.Y == y && d.Z == 0).FirstOrDefault();
+
+            if (result == null)
+                ifcDirection = model.Instances.New<IfcDirection>(d =>
+                {
+                    d.SetXYZ(x, y,z);
+                }
+                 );
+            else
+                ifcDirection = result;
         }
     }
 

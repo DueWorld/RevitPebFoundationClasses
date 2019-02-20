@@ -88,7 +88,8 @@
   <ItemGroup>
     <Compile Include="Geomterical Entities\CartesianPoint2D.cs" />
     <Compile Include="Geomterical Entities\CartesianPoint3D.cs" />
-    <Compile Include="Geomterical Entities\DirectionVector.cs" />
+    <Compile Include="Geomterical Entities\Direction2D.cs" />
+    <Compile Include="Geomterical Entities\DirectionVector3D.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\CrossSection.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\ExtrudedAreaSolid.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\IProfileDefined.cs" />
@@ -99,26 +100,34 @@
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\GeometricRepresentationContext.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\GeometricRepresentationSubContext.cs" />
     <Compile Include="Geomterical Entities\LocalPlacement.cs" />
+    <Compile Include="Geomterical Entities\PlacementAxis2D.cs" />
     <Compile Include="Material Resources\Material.cs" />
     <Compile Include="Model info\Building.cs" />
     <Compile Include="Model info\BuildingStorey.cs" />
     <Compile Include="Model info\BuildingStoreyCollection.cs" />
+    <Compile Include="Model info\Application.cs" />
+    <Compile Include="Model info\Organization.cs" />
+    <Compile Include="Model info\Person.cs" />
     <Compile Include="Model info\OwnerHistory.cs" />
+    <Compile Include="Model info\PostalAddress.cs" />
     <Compile Include="Model info\Project.cs" />
     <Compile Include="Model info\Site.cs" />
     <Compile Include="Geomterical Entities\PlacementAxis3D.cs" />
+    <Compile Include="Model info\SIUnit.cs" />
     <Compile Include="Model Objects\Column.cs" />
     <Compile Include="Model Objects\ContainmentObject\ElementAssembly.cs" />
     <Compile Include="Model Objects\ModelTypes\ColumnType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Property entities\PropertySet.cs" />
-    <Compile Include="Property entities\SingleProperty.cs" />
+    <Compile Include="Property Entities\PropertySet.cs" />
+    <Compile Include="Property Entities\SingleProperty.cs" />
     <Compile Include="Relational Entities\AggregateRelation.cs" />
     <Compile Include="Relational Entities\ContainmentRelation.cs" />
     <Compile Include="Relational Entities\MaterialRelation.cs" />
+    <Compile Include="Relational Entities\PersonOrgRelation.cs" />
     <Compile Include="Relational Entities\PropertySetRelation.cs" />
     <Compile Include="Relational Entities\TypeRelation.cs" />
+    <Compile Include="Relational Entities\UnitAssignmentRelation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
