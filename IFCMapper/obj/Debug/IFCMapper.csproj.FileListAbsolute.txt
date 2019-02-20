@@ -85,6 +85,6 @@ E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\bin\Debug\Xbim.ModelGeometry.Scene.pdb
 E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\bin\Debug\Xbim.ModelGeometry.Scene.xml
 E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\bin\Debug\Xbim.Tessellator.pdb
 E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\bin\Debug\Xbim.Tessellator.xml
-E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\obj\Debug\IFCMapper.csprojResolveAssemblyReference.cache
 E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\obj\Debug\IFCPEBMapper.exe
 E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\obj\Debug\IFCPEBMapper.pdb
+E:\Tech\ITI\IFC\IFCPEBMapper\IFCMapper\obj\Debug\IFCMapper.csprojResolveAssemblyReference.cache

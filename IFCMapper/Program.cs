@@ -5,6 +5,8 @@ using Xbim.Ifc2x3.MeasureResource;
 using Xbim.Ifc2x3.PropertyResource;
 using Xbim.Common.Step21;
 using IFCMapper.Geomterical_Entities;
+using IFCMapper.Material_Resources;
+using IFCMapper.Geomterical_Entities.ExtrudedCrossSections;
 
 namespace IFCMapper
 {
@@ -31,18 +33,12 @@ namespace IFCMapper
                 using (var txn = model.BeginTransaction("Initialise Model"))
                 {
                     //ALL CODE HERE.
+                    CartesianPoint3D p = new CartesianPoint3D(model, 1, 2, 3);
+                    DirectionVector3D axis = new DirectionVector3D(model,1, 1, 1);
 
-                    CartesianPoint3D point = new CartesianPoint3D(model, 10, 10, 10);
-                    CartesianPoint3D pointx = new CartesianPoint3D(model, 10, 10, 10);
-                    CartesianPoint2D point2 = new CartesianPoint2D(model, 10, 10);
-                    DirectionVector vector1 = new DirectionVector(model, 5, 5, 5);
-                    DirectionVector vector2 = new DirectionVector(model, 20, 20, 20);
+                    GeometricRepresentationContext geoCont = new GeometricRepresentationContext(model,"model",3,0.0000001,new PlacementAxis3D(model,p,axis,axis));
 
 
-                    PlacementAxis3D axis = new PlacementAxis3D(model, point, vector1, vector2);
-                    PlacementAxis3D axis2 = new PlacementAxis3D(model, pointx, vector2, vector2);
-                    LocalPlacement placement = new LocalPlacement(model, null, axis);
-                    LocalPlacement placement2 = new LocalPlacement(model, placement, axis2);
                     txn.Commit();
                 }
 

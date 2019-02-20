@@ -16,8 +16,8 @@ namespace IFCMapper.Geomterical_Entities
     class PlacementAxis3D
     {
         private CartesianPoint3D location;
-        private DirectionVector axis;
-        private DirectionVector refAxis;
+        private DirectionVector3D axis;
+        private DirectionVector3D refAxis;
         private IfcAxis2Placement3D ifcAxis2Placement3D;
 
 
@@ -26,19 +26,23 @@ namespace IFCMapper.Geomterical_Entities
         public IfcAxis2Placement3D IfcAxis2Placement3D => ifcAxis2Placement3D;
 
 
-        public PlacementAxis3D(IfcStore model, CartesianPoint3D location, DirectionVector axis, DirectionVector refAxis)
+        public PlacementAxis3D(IfcStore model, CartesianPoint3D location, DirectionVector3D axis, DirectionVector3D refAxis)
         {
             this.location = location;
             this.axis = axis;
             this.refAxis = refAxis;
 
+            IfcAxis2Placement3D result = model.Instances.OfType<IfcAxis2Placement3D>().Where(p => p.Location == location.IfcPoint && p.Axis.Equals(axis.IfcDirection) && p.RefDirection.Equals(refAxis.IfcDirection)).FirstOrDefault();
 
-            ifcAxis2Placement3D = model.Instances.New<IfcAxis2Placement3D>(p =>
-              {
-                  p.Location = location.IfcPoint;
-                  p.Axis = axis.IfcDirection;
-                  p.RefDirection = refAxis.IfcDirection;
-              });
+            if (result == null)
+                ifcAxis2Placement3D = model.Instances.New<IfcAxis2Placement3D>(p =>
+                {
+                    p.Location = location.IfcPoint;
+                    p.Axis = axis.IfcDirection;
+                    p.RefDirection = refAxis.IfcDirection;
+                });
+            else
+                ifcAxis2Placement3D = result;
 
 
 
