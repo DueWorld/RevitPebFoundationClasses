@@ -88,7 +88,7 @@
   <ItemGroup>
     <Compile Include="Geomterical Entities\CartesianPoint2D.cs" />
     <Compile Include="Geomterical Entities\CartesianPoint3D.cs" />
-    <Compile Include="Geomterical Entities\Direction2D.cs" />
+    <Compile Include="Geomterical Entities\DirectionVector2D.cs" />
     <Compile Include="Geomterical Entities\DirectionVector3D.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\CrossSection.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\ExtrudedAreaSolid.cs" />

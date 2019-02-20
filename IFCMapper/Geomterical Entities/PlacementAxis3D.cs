@@ -32,13 +32,17 @@ namespace IFCMapper.Geomterical_Entities
             this.axis = axis;
             this.refAxis = refAxis;
 
+            IfcAxis2Placement3D result = model.Instances.OfType<IfcAxis2Placement3D>().Where(p => p.Location == location.IfcPoint && p.Axis.Equals(axis.IfcDirection) && p.RefDirection.Equals(refAxis.IfcDirection)).FirstOrDefault();
 
-            ifcAxis2Placement3D = model.Instances.New<IfcAxis2Placement3D>(p =>
-              {
-                  p.Location = location.IfcPoint;
-                  p.Axis = axis.IfcDirection;
-                  p.RefDirection = refAxis.IfcDirection;
-              });
+            if (result == null)
+                ifcAxis2Placement3D = model.Instances.New<IfcAxis2Placement3D>(p =>
+                {
+                    p.Location = location.IfcPoint;
+                    p.Axis = axis.IfcDirection;
+                    p.RefDirection = refAxis.IfcDirection;
+                });
+            else
+                ifcAxis2Placement3D = result;
 
 
 

@@ -15,16 +15,17 @@ namespace IFCMapper.Geomterical_Entities
 {
     class LocalPlacement
     {
-        public IfcStore Model { get; set; }
-
 
         private LocalPlacement relativeToPlacement;
-
-
         private PlacementAxis3D relativePlacement;
 
 
+        public IfcStore Model { get; set; }
+
+
         public IfcLocalPlacement IfcLocalPlacement => ifcLocalPlacement;
+
+
         private IfcLocalPlacement ifcLocalPlacement;
 
 
@@ -34,16 +35,43 @@ namespace IFCMapper.Geomterical_Entities
             this.relativeToPlacement = relativeToPlacement;
             this.relativePlacement = relativePlacement;
 
-            ifcLocalPlacement = model.Instances.New<IfcLocalPlacement>(p =>
-             {
-                 if (ifcLocalPlacement != null)
-                 {
-                     p.PlacementRelTo = relativeToPlacement.ifcLocalPlacement;
-                 }
 
-                 p.RelativePlacement = relativePlacement.IfcAxis2Placement3D;
-             }
-             );
+            IfcLocalPlacement result = model.Instances.OfType<IfcLocalPlacement>()
+                .Where(p =>
+                {
+                    if (relativeToPlacement != null && p.PlacementRelTo != null)
+                    {
+                        return p.PlacementRelTo.Equals(relativeToPlacement.ifcLocalPlacement) && p.RelativePlacement.Equals(relativePlacement.IfcAxis2Placement3D);
+                    }
+                    else if (relativeToPlacement == null && p.PlacementRelTo != null)
+                    {
+                        return false;
+                    }
+                    else if (relativeToPlacement != null && p.PlacementRelTo == null)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        return p.RelativePlacement.Equals(relativePlacement.IfcAxis2Placement3D);
+                    }
+                })
+                .FirstOrDefault();
+
+
+            if (result == null)
+                ifcLocalPlacement = model.Instances.New<IfcLocalPlacement>(p =>
+                 {
+                     if (relativeToPlacement != null)
+                     {
+                         p.PlacementRelTo = relativeToPlacement.ifcLocalPlacement;
+                     }
+
+                     p.RelativePlacement = relativePlacement.IfcAxis2Placement3D;
+                 }
+                 );
+            else
+                ifcLocalPlacement = result;
 
 
         }
