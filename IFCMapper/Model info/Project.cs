@@ -26,16 +26,28 @@ namespace IFCMapper.Model_info
         public GeometricRepresentationContext Context => context;
         public UnitAssignmentRelation Units => units;
 
-        public Project(IfcStore model, OwnerHistory ownerHistory, string name, GeometricRepresentationContext context, UnitAssignmentRelation units)
+        //public Project(IfcStore model, OwnerHistory ownerHistory, string name, GeometricRepresentationContext context, UnitAssignmentRelation units)
+        //{
+        //    ifcProject = model.Instances.New<IfcProject>(p =>
+        //    {
+        //        p.OwnerHistory = ownerHistory.IfcOwnerHistory;
+        //        p.Name = name;
+        //        p.RepresentationContexts.Add(context.IfcRepresenationContext);
+        //    });
+        //    this.name = name;
+        //    this.ownerHistory = ownerHistory;
+        //    this.context = context;
+        //    this.units = units;
+        //}
+        public Project(IfcStore model, string name, GeometricRepresentationContext context, UnitAssignmentRelation units)
         {
             ifcProject = model.Instances.New<IfcProject>(p =>
             {
-                p.OwnerHistory = ownerHistory.IfcOwnerHistory;
                 p.Name = name;
                 p.RepresentationContexts.Add(context.IfcRepresenationContext);
+                p.UnitsInContext = units.IfcUnitAssignment;
             });
             this.name = name;
-            this.ownerHistory = ownerHistory;
             this.context = context;
             this.units = units;
         }
