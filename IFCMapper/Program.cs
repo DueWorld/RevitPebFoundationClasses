@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using Xbim.Ifc2x3.ProductExtension;
 using IFCMapper.Model_Objects;
 using Xbim.Ifc2x3.Kernel;
+using IFCMapper.Material_Resources;
 
 namespace IFCMapper
 {
@@ -20,7 +21,7 @@ namespace IFCMapper
         static void Main(string[] args)
         {
             //CHANGE PATH HERE.
-            string path = @"C:\Users\Scorias\Desktop\IFC trails";
+            string path = @"C:\Users\world\Downloads";
 
             var editor = new XbimEditorCredentials
             {
@@ -46,7 +47,7 @@ namespace IFCMapper
                     env.AddStorey(model, story);
 
 
-
+                    Material material = new Material(model, "S235JR");
                     CartesianPoint3D Expoint = new CartesianPoint3D(model, 0, 0, 0);
                     DirectionVector3D Exmain = new DirectionVector3D(model, 0, 0, 1);
                     DirectionVector3D Exreff = new DirectionVector3D(model, 1, 0, 0);
@@ -57,7 +58,7 @@ namespace IFCMapper
 
                     DirectionVector3D extVec = new DirectionVector3D(model, 0, 0, 1);
 
-                    RectangleProfile rectProfile = new RectangleProfile(model, 5, 500, "Sec1", Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA, postion);
+                    RectangleProfile rectProfile = new RectangleProfile(model, 5, 500, Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA, postion);
                     ExtrudedAreaSolid solid = new ExtrudedAreaSolid(model, 3000, rectProfile, extVec, Exaxis);
 
 
@@ -68,6 +69,7 @@ namespace IFCMapper
                     CartesianPoint3D point = new CartesianPoint3D(model, 0, 0, 0);
                     DirectionVector3D main = new DirectionVector3D(model, 0, 0, 1);
                     DirectionVector3D reff = new DirectionVector3D(model, 1, 0, 0);
+
                     PlacementAxis3D axis = new PlacementAxis3D(model, point, main, reff);
 
                     LocalPlacement placement = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis);
@@ -75,15 +77,8 @@ namespace IFCMapper
 
                     PrimitiveColumn column = new PrimitiveColumn(model, "pl500x5", "pl500x5", "column", "plswurk", placement, productShape);
 
-
-
-
-
-
-
-
-
-
+                    story.AddModelObject(column);
+                    column.AssignMaterial(material);
                     txn.Commit();
                 }
 
@@ -92,7 +87,7 @@ namespace IFCMapper
 
 
 
-                model.SaveAs($"{path}\\REEEEEEE.ifcxml");
+                model.SaveAs($"{path}\\TESTPLSSS.ifcxml");
             }
 
         }

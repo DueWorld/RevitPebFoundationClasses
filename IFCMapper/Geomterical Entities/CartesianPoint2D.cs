@@ -30,12 +30,13 @@ namespace IFCMapper.Geomterical_Entities
             this.x = x;
             this.y = y;
             this.Model = model;
-            IfcCartesianPoint result = model.Instances.OfType<IfcCartesianPoint>().Where(p => p.X == x && p.Y == y && p.Z == 0).FirstOrDefault();
+            IfcCartesianPoint result = model.Instances.OfType<IfcCartesianPoint>().Where(p => p.X == x && p.Y == y && p.Z == 0 && p.Dim.Value.Equals(2)).FirstOrDefault();
 
             if (result == null)
                 ifcPoint = model.Instances.New<IfcCartesianPoint>(p =>
                   {
                       p.SetXY(x, y);
+                     var test= p.Dim.Value;
                   }
                  );
             else

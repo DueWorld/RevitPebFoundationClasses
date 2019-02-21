@@ -101,6 +101,7 @@
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\GeometricRepresentationSubContext.cs" />
     <Compile Include="Geomterical Entities\LocalPlacement.cs" />
     <Compile Include="Geomterical Entities\PlacementAxis2D.cs" />
+    <Compile Include="ISchemaEntity.cs" />
     <Compile Include="Material Resources\Material.cs" />
     <Compile Include="Model info\Building.cs" />
     <Compile Include="Model info\BuildingStorey.cs" />
@@ -115,6 +116,7 @@
     <Compile Include="Model info\Site.cs" />
     <Compile Include="Geomterical Entities\PlacementAxis3D.cs" />
     <Compile Include="Model info\SIUnit.cs" />
+    <Compile Include="Model Objects\IModelObject.cs" />
     <Compile Include="Model Objects\PrimitiveColumn.cs" />
     <Compile Include="Model Objects\ContainmentObject\ElementAssembly.cs" />
     <Compile Include="Model Objects\ModelTypes\PrimitiveColumnType.cs" />

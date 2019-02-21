@@ -79,12 +79,7 @@ namespace IFCMapper.Model_info
 
         private void Initialize(IfcStore model)
         {
-            //person = new Person(model, "Company", "");
-            //organization = new Organization(model, "SilkRoad");
-            //relation = new PersonOrgRelation(model, organization, person);
-            //application = new Application(model, organization, "1.00", "IFCRevitToTekla", "1");
-            //ownerHistory = new OwnerHistory(model, relation, application, IfcChangeActionEnum.NOCHANGE, 18022019);
-            units = new UnitAssignmentRelation(model);
+               units = new UnitAssignmentRelation(model);
             material = new Material(model, "S235J0");
 
             //creating main project axis
@@ -126,7 +121,6 @@ namespace IFCMapper.Model_info
         {
             IfcRelAggregates StoryBuildingRel = model.Instances.New<IfcRelAggregates>(p =>
             {
-                //p.OwnerHistory = ownerHistory.IfcOwnerHistory;
                 p.RelatingObject = building.IfcBuilding;
                 p.RelatedObjects.Add(storey.IfcBuildingStorey);
             });

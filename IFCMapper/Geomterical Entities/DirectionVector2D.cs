@@ -30,7 +30,7 @@ namespace IFCMapper.Geomterical_Entities
             this.x = x;
             this.y = y;
       
-            IfcDirection result = model.Instances.OfType<IfcDirection>().Where(d => d.X == x && d.Y == y && d.Z == 0).FirstOrDefault();
+            IfcDirection result = model.Instances.OfType<IfcDirection>().Where(d => d.X == x && d.Y == y && d.Z == 0 && d.Dim.Value.Equals(2)).FirstOrDefault();
 
             if (result == null)
                 ifcDirection = model.Instances.New<IfcDirection>(d =>
