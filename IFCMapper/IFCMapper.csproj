@@ -106,6 +106,7 @@
     <Compile Include="Model info\BuildingStorey.cs" />
     <Compile Include="Model info\BuildingStoreyCollection.cs" />
     <Compile Include="Model info\Application.cs" />
+    <Compile Include="Model info\Environment.cs" />
     <Compile Include="Model info\Organization.cs" />
     <Compile Include="Model info\Person.cs" />
     <Compile Include="Model info\OwnerHistory.cs" />

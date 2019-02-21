@@ -20,7 +20,7 @@ namespace IFCMapper
         static void Main(string[] args)
         {
             //CHANGE PATH HERE.
-            string path = @"C:\TeklaStructuresModels\IFC\IFC";
+            string path = @"C:\Users\Scorias\Desktop\IFC trails";
 
             var editor = new XbimEditorCredentials
             {
@@ -37,26 +37,53 @@ namespace IFCMapper
             {
                 using (var txn = model.BeginTransaction("Initialise Model"))
                 {
-                    //ALL CODE HERE.
-                  
-                    DirectionVector3D vec3 = new DirectionVector3D(model, 1, 2, 3);
-                    PlacementAxis3D place3 = new PlacementAxis3D(model, new CartesianPoint3D(model, 1, 2, 3), vec3, vec3);
-                    RectangleProfile rectProfile = new RectangleProfile(model, 1, 1, "name", Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA);
-                    ExtrudedAreaSolid solid = new ExtrudedAreaSolid(model, 1000, rectProfile, vec3, place3);
-                    GeometricRepresentationContext cont = new GeometricRepresentationContext(model, "contType", 3, 0.000001, place3);
-                    GeometricRepresentationSubContext subCont = new GeometricRepresentationSubContext(model, "contId", "contType", Xbim.Ifc2x3.RepresentationResource.IfcGeometricProjectionEnum.MODEL_VIEW, cont);
-                    ShapeRepresentation representation = new ShapeRepresentation(model, subCont, new List<ExtrudedAreaSolid>() { solid });
+                    Environment env = Environment.Create(model);
+
+                    LocalPlacement storeyPlacement = new LocalPlacement(model, env.Building.LocalPlacement, env.ProjectAxis);
+                    BuildingStorey story = new BuildingStorey(model, env.OwnerHistory, "Story", storeyPlacement, IfcElementCompositionEnum.ELEMENT, 0);
+
+
+                    env.AddStorey(model, story);
+
+
+
+                    CartesianPoint3D Expoint = new CartesianPoint3D(model, 0, 0, 0);
+                    DirectionVector3D Exmain = new DirectionVector3D(model, 0, 0, 1);
+                    DirectionVector3D Exreff = new DirectionVector3D(model, 1, 0, 0);
+                    PlacementAxis3D Exaxis = new PlacementAxis3D(model, Expoint, Exmain, Exreff);
+                    CartesianPoint2D p = new CartesianPoint2D(model, 0, 0);
+                    DirectionVector2D v = new DirectionVector2D(model, 1, 0);
+                    PlacementAxis2D postion = new PlacementAxis2D(model, p, v);
+
+                    DirectionVector3D extVec = new DirectionVector3D(model, 0, 0, 1);
+
+                    RectangleProfile rectProfile = new RectangleProfile(model, 5, 500, "Sec1", Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA, postion);
+                    ExtrudedAreaSolid solid = new ExtrudedAreaSolid(model, 3000, rectProfile, extVec, Exaxis);
+
+
+                    ShapeRepresentation representation = new ShapeRepresentation(model, env.SubContext, new List<ExtrudedAreaSolid>() { solid });
                     ProductionDefinitionShape productShape = new ProductionDefinitionShape(model, new List<ShapeRepresentation>() { representation });
-                    LocalPlacement placement = new LocalPlacement(model, null, place3);
-                    Organization org = new Organization(model, "orgname");
-                    Person p = new Person(model, "personName", "familyName");
-                    Application app = new Application(model,org, "version", "appName", "appId");
-                    PersonOrgRelation relOrgPer = new PersonOrgRelation(model, org, p);
-                    OwnerHistory owner = new OwnerHistory(model,relOrgPer,app, Xbim.Ifc2x3.UtilityResource.IfcChangeActionEnum.NOCHANGE, 5);
-                    PrimitiveColumn column = new PrimitiveColumn(model, "kkkk", "okkkkk", "type of kkk", "tag kkkk", placement,owner, productShape);
-                    
-                   
-                    
+
+
+                    CartesianPoint3D point = new CartesianPoint3D(model, 0, 0, 0);
+                    DirectionVector3D main = new DirectionVector3D(model, 0, 0, 1);
+                    DirectionVector3D reff = new DirectionVector3D(model, 1, 0, 0);
+                    PlacementAxis3D axis = new PlacementAxis3D(model, point, main, reff);
+
+                    LocalPlacement placement = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis);
+
+
+                    PrimitiveColumn column = new PrimitiveColumn(model, "pl500x5", "pl500x5", "column", "plswurk", placement, productShape);
+
+
+
+
+
+
+
+
+
+
                     txn.Commit();
                 }
 
@@ -65,7 +92,7 @@ namespace IFCMapper
 
 
 
-                model.SaveAs($"{path}\\outSelectedBimXML.ifcxml");
+                model.SaveAs($"{path}\\REEEEEEE.ifcxml");
             }
 
         }

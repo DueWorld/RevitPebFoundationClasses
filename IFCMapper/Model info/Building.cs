@@ -12,7 +12,7 @@ namespace IFCMapper.Model_info
     class Building
     {
         private IfcBuilding ifcBuilding;
-        private OwnerHistory ownerHistory;
+        //private OwnerHistory ownerHistory;
         private string name;
         private LocalPlacement localPlacement;
         private IfcElementCompositionEnum compositionType;
@@ -20,7 +20,7 @@ namespace IFCMapper.Model_info
 
 
         public IfcBuilding IfcBuilding => ifcBuilding;
-        public OwnerHistory OwnerHistory => ownerHistory;
+        //public OwnerHistory OwnerHistory => ownerHistory;
         public String Name => name;
         public LocalPlacement LocalPlacement => localPlacement;
         public IfcElementCompositionEnum CompositionType => compositionType;
@@ -33,14 +33,14 @@ namespace IFCMapper.Model_info
         {
             ifcBuilding = model.Instances.New<IfcBuilding>(p =>
             {
-                p.OwnerHistory = ownerHistory.IfcOwnerHistory;
+                //p.OwnerHistory = ownerHistory.IfcOwnerHistory;
                 p.Name = name;
                 p.ObjectPlacement = localPlacement.IfcLocalPlacement;
                 p.CompositionType = compositionType;
                 p.BuildingAddress = postalAdress.IfcPostalAdress;
             });
 
-            this.ownerHistory = ownerHistory;
+            //this.ownerHistory = ownerHistory;
             this.name = name;
             this.localPlacement = localPlacement;
             this.compositionType = compositionType;
