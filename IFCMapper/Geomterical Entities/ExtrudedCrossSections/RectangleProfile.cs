@@ -30,12 +30,12 @@ namespace IFCMapper.Geomterical_Entities.ExtrudedCrossSections
         public IfcStore Model { get; set; }
         public IfcProfileDef ProfileDef => ifcRectangleProfile;
 
-        public RectangleProfile(IfcStore model, double x, double y, string profileName, IfcProfileTypeEnum profileType,PlacementAxis2D position)
+        public RectangleProfile(IfcStore model, double x, double y, IfcProfileTypeEnum profileType,PlacementAxis2D position)
         {
             this.Model = model;
             this.xDim = x;
             this.yDim = y;
-            this.profileName = profileName;
+            this.profileName = $"PL{x}*{y}";
             this.profileType = profileType;
             this.position = position;
 

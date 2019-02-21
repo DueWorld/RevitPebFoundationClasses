@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using Xbim.Ifc2x3.ProductExtension;
 using IFCMapper.Model_Objects;
 using Xbim.Ifc2x3.Kernel;
-using IFCMapper.RevitRetreiver;
+using IFCMapper.Material_Resources;
+using IFCMapper.TeklaModelObjects;
 
 
 namespace IFCMapper
@@ -22,74 +23,76 @@ namespace IFCMapper
         static void Main(string[] args)
         {
             //CHANGE PATH HERE.
-            //string path = @"C:\Users\Scorias\Desktop\IFC trails";
+            string path = @"C:\Users\world\Downloads";
 
-            //var editor = new XbimEditorCredentials
-            //{
-            //    ApplicationDevelopersName = "xBIM Team",
-            //    ApplicationFullName = "xBIM Toolkit",
-            //    ApplicationIdentifier = "xBIM",
-            //    ApplicationVersion = "4.0",
-            //    EditorsFamilyName = "sane",
-            //    EditorsGivenName = "sane",
-            //    EditorsOrganisationName = "Independent"
-            //};
+            var editor = new XbimEditorCredentials
+            {
+                ApplicationDevelopersName = "xBIM Team",
+                ApplicationFullName = "xBIM Toolkit",
+                ApplicationIdentifier = "xBIM",
+                ApplicationVersion = "4.0",
+                EditorsFamilyName = "MoSalah",
+                EditorsGivenName = "sane",
+                EditorsOrganisationName = "Independent"
+            };
 
-            //using (IfcStore model = IfcStore.Create(editor, IfcSchemaVersion.Ifc2X3, XbimStoreType.InMemoryModel))
-            //{
-            //    using (var txn = model.BeginTransaction("Initialise Model"))
-            //    {
-            //        Environment env = Environment.Create(model);
-
-            //        LocalPlacement storeyPlacement = new LocalPlacement(model, env.Building.LocalPlacement, env.ProjectAxis);
-            //        BuildingStorey story = new BuildingStorey(model, env.OwnerHistory, "Story", storeyPlacement, IfcElementCompositionEnum.ELEMENT, 0);
-
-
-            //        env.AddStorey(model, story);
+            using (IfcStore model = IfcStore.Create(editor, IfcSchemaVersion.Ifc2X3, XbimStoreType.InMemoryModel))
+            {
+                using (var txn = model.BeginTransaction("Initialise Model"))
+                {
+                    Environment env = Environment.Create(model);
+                    ModelOptions option = new ModelOptions(model, env);
 
 
 
-            //        CartesianPoint3D Expoint = new CartesianPoint3D(model, 0, 0, 0);
-            //        DirectionVector3D Exmain = new DirectionVector3D(model, 0, 0, 1);
-            //        DirectionVector3D Exreff = new DirectionVector3D(model, 1, 0, 0);
-            //        PlacementAxis3D Exaxis = new PlacementAxis3D(model, Expoint, Exmain, Exreff);
-            //        CartesianPoint2D p = new CartesianPoint2D(model, 0, 0);
-            //        DirectionVector2D v = new DirectionVector2D(model, 1, 0);
-            //        PlacementAxis2D postion = new PlacementAxis2D(model, p, v);
-
-            //        DirectionVector3D extVec = new DirectionVector3D(model, 0, 0, 1);
-
-            //        RectangleProfile rectProfile = new RectangleProfile(model, 5, 500, "Sec1", Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA, postion);
-            //        ExtrudedAreaSolid solid = new ExtrudedAreaSolid(model, 3000, rectProfile, extVec, Exaxis);
+                    //Local placement of the main storey.
+                    LocalPlacement storeyPlacement = new LocalPlacement(model, env.Building.LocalPlacement, env.ProjectAxis);
+                    BuildingStorey storey = new BuildingStorey(model, "Story", storeyPlacement, IfcElementCompositionEnum.ELEMENT, 0);
+                    env.AddStorey(model, storey);
 
 
-            //        ShapeRepresentation representation = new ShapeRepresentation(model, env.SubContext, new List<ExtrudedAreaSolid>() { solid });
-            //        ProductionDefinitionShape productShape = new ProductionDefinitionShape(model, new List<ShapeRepresentation>() { representation });
+                    //Local placement of the object placement of the column (This will be manipulated according to Autodesk Revit readings).
+                    CartesianPoint3D point = CartesianPoint3D.Origin(model);
+                    DirectionVector3D main = DirectionVector3D.UnitZ(model);
+                    DirectionVector3D reff = DirectionVector3D.UnitX(model);
+                    PlacementAxis3D axis = new PlacementAxis3D(model, point, main, reff);
+                    LocalPlacement placement = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis);
 
 
-            //        CartesianPoint3D point = new CartesianPoint3D(model, 0, 0, 0);
-            //        DirectionVector3D main = new DirectionVector3D(model, 0, 0, 1);
-            //        DirectionVector3D reff = new DirectionVector3D(model, 1, 0, 0);
-            //        PlacementAxis3D axis = new PlacementAxis3D(model, point, main, reff);
-
-            //        LocalPlacement placement = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis);
-
-
-            //        PrimitiveColumn column = new PrimitiveColumn(model, "pl500x5", "pl500x5", "column", "plswurk", placement, productShape);
+                    //Local placement of the object placement of the column (This will be manipulated according to Autodesk Revit readings).
+                    CartesianPoint3D point2 = new CartesianPoint3D(model, 6000, 6000, 0);
+                    DirectionVector3D main2 = DirectionVector3D.UnitZ(model);
+                    DirectionVector3D reff2 = DirectionVector3D.UnitX(model);
+                    PlacementAxis3D axis2 = new PlacementAxis3D(model, point2, main2, reff2);
+                    LocalPlacement placement2 = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis2);
 
 
 
 
+                    //Assigning the material and the main column.
+                    Material material = new Material(model, "S235JR");
+
+                    TeklaPlate plate = new TeklaPlate(option, placement, 5, 500);
+
+                    TeklaPlate plate2 = new TeklaPlate(option, placement2, 5, 500);
+
+                    storey.AddModelObject(plate, plate2);
+
+
+
+                    plate.AssignMaterial(material);
+
+
+
+                    plate2.AssignMaterial(material);
 
 
 
 
 
-
-            //        txn.Commit();
-            //    }
-
-
+                    txn.Commit();
+                }
+                model.SaveAs($"{path}\\TESTPLSSS.ifcxml");
 
 
 

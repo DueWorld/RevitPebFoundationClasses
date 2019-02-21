@@ -13,7 +13,6 @@ namespace IFCMapper.Model_info
     class Site
     {
         private IfcSite ifcSite;
-        //private OwnerHistory ownerHistory;
         private string name;
         private LocalPlacement localPlacement;
         private IfcElementCompositionEnum compositionType;
@@ -21,7 +20,6 @@ namespace IFCMapper.Model_info
 
 
         public IfcSite IfcSite => ifcSite;
-        //public OwnerHistory OwnerHistory => ownerHistory;
         public String Name => name;
         public LocalPlacement LocalPlacement => localPlacement;
         public IfcElementCompositionEnum CompositionType =>compositionType;
@@ -30,11 +28,10 @@ namespace IFCMapper.Model_info
 
 
 
-        public Site(IfcStore model, OwnerHistory ownerHistory, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType,double relativeElevation)
+        public Site(IfcStore model, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType,double relativeElevation)
         {
             ifcSite = model.Instances.New<IfcSite>(p =>
             {
-                //p.OwnerHistory = ownerHistory.IfcOwnerHistory;
                 p.Name = name;
                 p.ObjectPlacement = localPlacement.IfcLocalPlacement;
                 p.CompositionType = compositionType;
