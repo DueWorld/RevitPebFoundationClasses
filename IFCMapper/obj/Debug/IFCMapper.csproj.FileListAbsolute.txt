@@ -130,7 +130,7 @@ D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\bin\Debug\Xbim.ModelG
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\bin\Debug\Xbim.ModelGeometry.Scene.xml
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\bin\Debug\Xbim.Tessellator.pdb
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\bin\Debug\Xbim.Tessellator.xml
-D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\obj\Debug\IFCMapper.csprojResolveAssemblyReference.cache
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\obj\Debug\IFCMapper.csproj.CoreCompileInputs.cache
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\obj\Debug\IFCPEBMapper.exe
 D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\obj\Debug\IFCPEBMapper.pdb
+D:\Informatics Stuff\Projects\IFC Revit To Tekla\IFCMapper\obj\Debug\IFCMapper.csprojResolveAssemblyReference.cache
