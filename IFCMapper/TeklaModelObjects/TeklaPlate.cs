@@ -28,10 +28,10 @@ namespace IFCMapper.TeklaModelObjects
         public IfcStore Model { get; set; }
         public IfcProduct IfcProduct => ifcColumn;
 
-        public TeklaPlate(ModelOptions modelOption,LocalPlacement objectPlacement,double xDimension, double yDimension, string name = "COLUMN")
+        public TeklaPlate(ModelOptions modelOption,LocalPlacement objectPlacement,double xDimension, double yDimension,double depth, string name = "COLUMN")
         {
             this.Model = modelOption.Model;
-            RectangularCrossSection section = new RectangularCrossSection(modelOption, xDimension, yDimension);
+            RectangularCrossSection section = new RectangularCrossSection(modelOption, xDimension, yDimension,depth);
             this.productRepresentation = section.ProductShape;
             this.name = name;
             this.description = productRepresentation.Representations[0].ExtrudedSolidList[0].Profile.ProfileName;

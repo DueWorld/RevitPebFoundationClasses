@@ -13,7 +13,7 @@ namespace IFCMapper.TeklaModelObjects.ExtrudedCrossSections
     class RectangularCrossSection
     {
         public ProductionDefinitionShape ProductShape { get; private set; }
-        public RectangularCrossSection(ModelOptions modelOption, double x, double y)
+        public RectangularCrossSection(ModelOptions modelOption, double x, double y,double depth)
         {
             //Position of the 2D rectangular section (Will remain fixed).
             CartesianPoint2D p = CartesianPoint2D.Origin(modelOption.Model);
@@ -28,7 +28,7 @@ namespace IFCMapper.TeklaModelObjects.ExtrudedCrossSections
             DirectionVector3D exReff = DirectionVector3D.UnitX(modelOption.Model);
             PlacementAxis3D Exaxis = new PlacementAxis3D(modelOption.Model, Expoint, exMain, exReff);
             DirectionVector3D extVec = DirectionVector3D.UnitZ(modelOption.Model);
-            ExtrudedAreaSolid solid = new ExtrudedAreaSolid(modelOption.Model, 3000, rectProfile, extVec, Exaxis);
+            ExtrudedAreaSolid solid = new ExtrudedAreaSolid(modelOption.Model, depth, rectProfile, extVec, Exaxis);
             ShapeRepresentation representation = new ShapeRepresentation(modelOption.Model, modelOption.Environment.SubContext, new List<ExtrudedAreaSolid>() { solid });
             ProductShape = new ProductionDefinitionShape(modelOption.Model, new List<ShapeRepresentation>() { representation });
 

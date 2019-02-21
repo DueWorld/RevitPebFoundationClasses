@@ -24,6 +24,7 @@ namespace IFCMapper.RevitRetreiver
         private double overallDepth;
         private double flangeThickness;
         private double webThickness;
+        private double height;
         private List<RevitPlate> components;
 
         public Point Origin => origin;
@@ -34,7 +35,7 @@ namespace IFCMapper.RevitRetreiver
         public double FlangeThickness => flangeThickness;
         public double WebThickness => webThickness;
         public List<RevitPlate> Components => components;
-
+        public double Height => height;
 
         public RevitColumn(IfcColumn column)
         {
@@ -79,13 +80,14 @@ namespace IFCMapper.RevitRetreiver
             overallDepth = ((IfcIShapeProfileDef)column.Representation.Representations.OfType<IfcShapeRepresentation>().FirstOrDefault().Items.OfType<IfcMappedItem>().FirstOrDefault().MappingSource.MappedRepresentation.Items.OfType<IfcExtrudedAreaSolid>().FirstOrDefault().SweptArea).OverallDepth;
             webThickness = ((IfcIShapeProfileDef)column.Representation.Representations.OfType<IfcShapeRepresentation>().FirstOrDefault().Items.OfType<IfcMappedItem>().FirstOrDefault().MappingSource.MappedRepresentation.Items.OfType<IfcExtrudedAreaSolid>().FirstOrDefault().SweptArea).WebThickness;
             flangeThickness = ((IfcIShapeProfileDef)column.Representation.Representations.OfType<IfcShapeRepresentation>().FirstOrDefault().Items.OfType<IfcMappedItem>().FirstOrDefault().MappingSource.MappedRepresentation.Items.OfType<IfcExtrudedAreaSolid>().FirstOrDefault().SweptArea).FlangeThickness;
+            height = (column.Representation.Representations.OfType<IfcShapeRepresentation>().FirstOrDefault().Items.OfType<IfcMappedItem>().FirstOrDefault().MappingSource.MappedRepresentation.Items.OfType<IfcExtrudedAreaSolid>().FirstOrDefault()).Depth;
 
 
             GetComponants();
         }
         private void GetComponants()
         {
-            RevitPlate web = new RevitPlate(origin, axis, reffDirection, webThickness, (overallDepth - 2 * flangeThickness));
+            RevitPlate web = new RevitPlate(origin, axis, reffDirection, webThickness, (overallDepth - 2 * flangeThickness),height);
 
 
 
@@ -95,8 +97,8 @@ namespace IFCMapper.RevitRetreiver
             Point flangeTwoOrigin = new Point((origin.X + scalarQ * flangeReffDirection.X * -1), (origin.Y + scalarQ * flangeReffDirection.Y * -1), origin.Z);
 
 
-            RevitPlate flangeOne = new RevitPlate(flangeOneOrigin, axis, flangeReffDirection, FlangeThickness, overallWidth);
-            RevitPlate flangeTwo = new RevitPlate(flangeTwoOrigin, axis, flangeReffDirection, FlangeThickness, overallWidth);
+            RevitPlate flangeOne = new RevitPlate(flangeOneOrigin, axis, flangeReffDirection, FlangeThickness, overallWidth,height);
+            RevitPlate flangeTwo = new RevitPlate(flangeTwoOrigin, axis, flangeReffDirection, FlangeThickness, overallWidth,height);
 
             components.Add(web);
             components.Add(flangeOne);

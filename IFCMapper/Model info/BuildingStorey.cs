@@ -48,9 +48,9 @@ namespace IFCMapper.Model_info
             this.elevation = elevation;
         }
 
-        public void AddModelObject(IModelObject modelObject)
+        public void AddModelObject(List<IModelObject> modelObjects)
         {
-            ContainmentRelation rel = new ContainmentRelation(Model,this,new List<IModelObject>() {modelObject});
+            ContainmentRelation rel = new ContainmentRelation(Model,this,modelObjects);
         }
 
         public void AddModelObject(params IModelObject[] modelObject)

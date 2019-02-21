@@ -136,6 +136,7 @@
     <Compile Include="RevitRetreiver\RevitPlate.cs" />
     <Compile Include="RevitRetreiver\RevitSeeker.cs" />
     <Compile Include="RevitRetreiver\Vector.cs" />
+    <Compile Include="TeklaModelObjects\TeklaPlatePlacementInitializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

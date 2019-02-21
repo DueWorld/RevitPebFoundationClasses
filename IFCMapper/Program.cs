@@ -14,7 +14,7 @@ using IFCMapper.Model_Objects;
 using Xbim.Ifc2x3.Kernel;
 using IFCMapper.Material_Resources;
 using IFCMapper.TeklaModelObjects;
-
+using IFCMapper.RevitRetreiver;
 
 namespace IFCMapper
 {
@@ -23,7 +23,7 @@ namespace IFCMapper
         static void Main(string[] args)
         {
             //CHANGE PATH HERE.
-            string path = @"C:\Users\world\Downloads";
+            string path = @"C:\Users\Scorias\Desktop\IFC trails";
 
             var editor = new XbimEditorCredentials
             {
@@ -35,6 +35,17 @@ namespace IFCMapper
                 EditorsGivenName = "sane",
                 EditorsOrganisationName = "Independent"
             };
+
+            RevitSeeker seeker;
+
+            string filename = "RF";
+            string filepath = @"C:\Users\Scorias\Desktop\IFC trails";
+            using (var stepModel = IfcStore.Open($"{filepath}\\{filename}.ifc"))
+            {
+                seeker = new RevitSeeker(stepModel);
+            }
+
+
 
             using (IfcStore model = IfcStore.Create(editor, IfcSchemaVersion.Ifc2X3, XbimStoreType.InMemoryModel))
             {
@@ -51,73 +62,30 @@ namespace IFCMapper
                     env.AddStorey(model, storey);
 
 
-                    //Local placement of the object placement of the column (This will be manipulated according to Autodesk Revit readings).
-                    CartesianPoint3D point = CartesianPoint3D.Origin(model);
-                    DirectionVector3D main = DirectionVector3D.UnitZ(model);
-                    DirectionVector3D reff = DirectionVector3D.UnitX(model);
-                    PlacementAxis3D axis = new PlacementAxis3D(model, point, main, reff);
-                    LocalPlacement placement = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis);
-
-
-                    //Local placement of the object placement of the column (This will be manipulated according to Autodesk Revit readings).
-                    CartesianPoint3D point2 = new CartesianPoint3D(model, 6000, 6000, 0);
-                    DirectionVector3D main2 = DirectionVector3D.UnitZ(model);
-                    DirectionVector3D reff2 = DirectionVector3D.UnitX(model);
-                    PlacementAxis3D axis2 = new PlacementAxis3D(model, point2, main2, reff2);
-                    LocalPlacement placement2 = new LocalPlacement(model, env.Stories.FirstOrDefault().LocalPlacement, axis2);
-
-
-
-
                     //Assigning the material and the main column.
                     Material material = new Material(model, "S235JR");
 
-                    TeklaPlate plate = new TeklaPlate(option, placement, 5, 500);
 
-                    TeklaPlate plate2 = new TeklaPlate(option, placement2, 5, 500);
+                    var RevitColumns = seeker.RevitColumns;
+                    List<TeklaPlate> StoryComponants = new List<TeklaPlate>();
+                    TeklaPlatePlacementInitializer plateInitializer;
 
-                    storey.AddModelObject(plate, plate2);
-
-
-
-                    plate.AssignMaterial(material);
-
-
-
-                    plate2.AssignMaterial(material);
-
-
-
-
-
+                    foreach (var rColumn in RevitColumns)
+                    {
+                        List<RevitPlate> rColumnComp = rColumn.Components;
+                        foreach (var revitPlate in rColumnComp)
+                        {
+                            plateInitializer = new TeklaPlatePlacementInitializer(model, env, revitPlate.Origin, revitPlate.Axis, revitPlate.ReffDirection);
+                            TeklaPlate plate = new TeklaPlate(option, plateInitializer.LocalPlacement, revitPlate.OverallWidth, revitPlate.OverallDepth,revitPlate.Height);
+                            StoryComponants.Add(plate);
+                            plate.AssignMaterial(material);
+                        }
+                    }
+                    storey.AddModelObject(StoryComponants.ToArray());
                     txn.Commit();
                 }
-                model.SaveAs($"{path}\\TESTPLSSS.ifcxml");
-
-
-
-
-            //    model.SaveAs($"{path}\\REEEEEEE.ifcxml");
-            //}
-
-            RevitSeeker sucker;
-
-            string filename = "RF";
-            string filepath = @"C:\Users\Scorias\Desktop\IFC trails";
-            using (var model = IfcStore.Open($"{filepath}\\{filename}.ifc"))
-            {
-                 sucker = new RevitSeeker(model); 
+                model.SaveAs($"{path}\\TheRealMindWurks.ifcxml");
             }
-
-            var wooho = sucker.RevitColumns;
-
-            var revitcol = wooho[0];
-            var ffs = wooho[1];
-
-            string name = "ffs";
-
-
-
         }
     }
 }
