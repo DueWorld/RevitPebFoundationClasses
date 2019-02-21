@@ -27,7 +27,7 @@ namespace IFCMapper.Model_info
         public PostalAddress PostalAddress => postalAdress;
 
 
-
+        
 
         public Building(IfcStore model, OwnerHistory ownerHistory, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType, PostalAddress postalAdress)
         {

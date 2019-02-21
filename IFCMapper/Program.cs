@@ -10,10 +10,7 @@ using IFCMapper.Relational_Entities;
 using IFCMapper.Geomterical_Entities.ExtrudedCrossSections;
 using System.Collections.Generic;
 using Xbim.Ifc2x3.ProductExtension;
-using IFCMapper.Geomterical_Entities.ExtrudedCrossSections;
-using System.Collections.Generic;
 using IFCMapper.Model_Objects;
-using Xbim.Ifc2x3.ProductExtension;
 using Xbim.Ifc2x3.Kernel;
 
 namespace IFCMapper
@@ -41,64 +38,7 @@ namespace IFCMapper
                 using (var txn = model.BeginTransaction("Initialise Model"))
                 {
                     //ALL CODE HERE.
-                    Person person = new Person(model, "Scorias", "");
-
-
-                    Organization org = new Organization(model, "SilkRoad");
-
-
-
-                    PersonOrgRelation relation = new PersonOrgRelation(model, org, person);
-
-
-                    Application app = new Application(model, org, "1.00", "MMORPG", "696969");
-
-
-                    OwnerHistory OH = new OwnerHistory(model, relation, app, Xbim.Ifc2x3.UtilityResource.IfcChangeActionEnum.NOCHANGE, 21102004);
-
-                    UnitAssignmentRelation units = new UnitAssignmentRelation(model);
-
-
-
-                    CartesianPoint3D point = new CartesianPoint3D(model, 0, 0, 0);
-                    DirectionVector3D main = new DirectionVector3D(model, 0, 0, 1);
-                    DirectionVector3D reff = new DirectionVector3D(model, 1, 0, 0);
-                    PlacementAxis3D ProjAxis = new PlacementAxis3D(model, point, main, reff); //i10
-
-
-                    GeometricRepresentationContext GeoRep = new GeometricRepresentationContext(model, "Model", 3, 0.000001, ProjAxis);
-
-
-                    Project proj = new Project(model, OH, "PTSA", GeoRep,units);
-
-
-
-
-
-
-
-
-
-                    LocalPlacement sitePlacement = new LocalPlacement(model, null, ProjAxis);
-                    Site site = new Site(model, OH, "Site", sitePlacement, Xbim.Ifc2x3.ProductExtension.IfcElementCompositionEnum.ELEMENT, 0);
-
-
-
-
-                    PostalAddress post = new PostalAddress(model, "IN YOUR MOMMA ROOM");
-
-                    LocalPlacement buildPlacement = new LocalPlacement(model, sitePlacement, ProjAxis);
-
-                    Building building = new Building(model, OH, "Building", buildPlacement, Xbim.Ifc2x3.ProductExtension.IfcElementCompositionEnum.ELEMENT, post);
-                    
-
-                    LocalPlacement storeyPlacement = new LocalPlacement(model, buildPlacement, ProjAxis);
-                    BuildingStorey story = new BuildingStorey(model, OH, "Story", storeyPlacement, Xbim.Ifc2x3.ProductExtension.IfcElementCompositionEnum.ELEMENT, 0);
-
-                    proj.IfcProject.AddSite(site.IfcSite);
-                    site.IfcSite.AddBuilding(building.IfcBuilding);
-
-
+                  
                     DirectionVector3D vec3 = new DirectionVector3D(model, 1, 2, 3);
                     PlacementAxis3D place3 = new PlacementAxis3D(model, new CartesianPoint3D(model, 1, 2, 3), vec3, vec3);
                     RectangleProfile rectProfile = new RectangleProfile(model, 1, 1, "name", Xbim.Ifc2x3.ProfileResource.IfcProfileTypeEnum.AREA);
@@ -113,7 +53,7 @@ namespace IFCMapper
                     Application app = new Application(model,org, "version", "appName", "appId");
                     PersonOrgRelation relOrgPer = new PersonOrgRelation(model, org, p);
                     OwnerHistory owner = new OwnerHistory(model,relOrgPer,app, Xbim.Ifc2x3.UtilityResource.IfcChangeActionEnum.NOCHANGE, 5);
-                    //PrimitiveColumn column = new PrimitiveColumn(model, "a7a", "a7a kbera neek", "type of a7a", "tag a7a", placement,owner, productShape);
+                    PrimitiveColumn column = new PrimitiveColumn(model, "kkkk", "okkkkk", "type of kkk", "tag kkkk", placement,owner, productShape);
                     
                    
                     
