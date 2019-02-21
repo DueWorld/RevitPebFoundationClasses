@@ -41,5 +41,22 @@ namespace IFCMapper.Geomterical_Entities
             else
                 ifcDirection = result;
         }
+
+        public static DirectionVector2D Origin(IfcStore model)
+        {
+            return new DirectionVector2D(model, 0, 0);
+        }
+
+        public static DirectionVector2D UnitX(IfcStore model)
+        {
+            return new DirectionVector2D(model, 1, 0);
+
+        }
+
+        public static DirectionVector2D UnitY(IfcStore model)
+        {
+            return new DirectionVector2D(model, 0, 1);
+
+        }
     }
 }

@@ -13,18 +13,19 @@ using Xbim.Ifc2x3.SharedBldgElements;
 using Xbim.Ifc2x3.ProductExtension;
 using Xbim.Common;
 using IFCMapper.Model_info;
+using IFCMapper.Model_Objects;
 
 namespace IFCMapper.Relational_Entities
 {
     class ContainmentRelation
     {
-        List<ISchemaEntity> relatedElements;
+        List<IModelObject> relatedElements;
 
         BuildingStorey relatingStructure;
 
         IfcStore Model { get; set; }
 
-        public ContainmentRelation(IfcStore model, BuildingStorey relatingStructure, List<ISchemaEntity> relatedElements)
+        public ContainmentRelation(IfcStore model, BuildingStorey relatingStructure, List<IModelObject> relatedElements)
         {
             this.relatingStructure = relatingStructure;
 
@@ -33,7 +34,7 @@ namespace IFCMapper.Relational_Entities
 
             var resultingRelation = model.Instances.New<IfcRelContainedInSpatialStructure>(rel =>
              {
-                 foreach (ISchemaEntity entity in relatedElements)
+                 foreach (IModelObject entity in relatedElements)
                  {
                      rel.RelatedElements.Add(entity.IfcProduct);
                  }

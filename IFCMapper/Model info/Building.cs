@@ -27,7 +27,7 @@ namespace IFCMapper.Model_info
 
         
 
-        public Building(IfcStore model, OwnerHistory ownerHistory, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType, PostalAddress postalAdress)
+        public Building(IfcStore model, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType, PostalAddress postalAdress)
         {
             ifcBuilding = model.Instances.New<IfcBuilding>(p =>
             {

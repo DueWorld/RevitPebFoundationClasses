@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xbim.Ifc;
-using Xbim.Ifc2x3.Interfaces;
-using Xbim.Ifc2x3.MeasureResource;
-using Xbim.Ifc2x3.PropertyResource;
-using Xbim.Common.Step21;
 using Xbim.Ifc2x3.GeometryResource;
 
 namespace IFCMapper.Geomterical_Entities
@@ -42,5 +35,24 @@ namespace IFCMapper.Geomterical_Entities
             else
                 ifcPoint = result;
         }
+
+
+        public static CartesianPoint2D Origin(IfcStore model)
+        {
+            return new CartesianPoint2D(model, 0, 0);
+        }
+
+        public static CartesianPoint2D UnitX(IfcStore model)
+        {
+            return new CartesianPoint2D(model, 1, 0);
+
+        }
+
+        public static CartesianPoint2D UnitY(IfcStore model)
+        {
+            return new CartesianPoint2D(model, 0, 1);
+
+        }
+
     }
 }

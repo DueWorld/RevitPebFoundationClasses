@@ -12,7 +12,7 @@ using IFCMapper.Model_Objects;
 
 namespace IFCMapper.Model_info
 {
-    class BuildingStorey : ISchemaEntity
+    class BuildingStorey 
     {
         private IfcBuildingStorey ifcBuildingStorey;
         private string name;
@@ -30,7 +30,7 @@ namespace IFCMapper.Model_info
         public IfcProduct IfcProduct => ifcBuildingStorey;
         public IfcStore Model {get;set;}
 
-        public BuildingStorey(IfcStore model, OwnerHistory ownerHistory, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType, double elevation)
+        public BuildingStorey(IfcStore model, string name, LocalPlacement localPlacement, IfcElementCompositionEnum compositionType, double elevation)
         {
             this.Model = model;
 
@@ -50,7 +50,13 @@ namespace IFCMapper.Model_info
 
         public void AddModelObject(IModelObject modelObject)
         {
-            ContainmentRelation rel = new ContainmentRelation(Model,this,new List<ISchemaEntity>() {modelObject});
+            ContainmentRelation rel = new ContainmentRelation(Model,this,new List<IModelObject>() {modelObject});
         }
+
+        public void AddModelObject(params IModelObject[] modelObject)
+        { 
+            ContainmentRelation rel = new ContainmentRelation(Model, this, modelObject.ToList());
+        }
+
     }
 }

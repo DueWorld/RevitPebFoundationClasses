@@ -24,7 +24,9 @@ namespace IFCMapper.Geomterical_Entities
         public double Z => z;
 
         public IfcStore Model { get; set; }
+
         public IfcCartesianPoint IfcPoint => ifcPoint;
+
 
         public CartesianPoint3D(IfcStore model, double x, double y, double z)
         {
@@ -37,13 +39,36 @@ namespace IFCMapper.Geomterical_Entities
             if (result == null)
                 ifcPoint = model.Instances.New<IfcCartesianPoint>(p =>
                 {
-                    p.SetXYZ(x, y,z);
+                    p.SetXYZ(x, y, z);
                 }
                  );
             else
                 ifcPoint = result;
 
-            
+
+        }
+
+        public static CartesianPoint3D Origin(IfcStore model)
+        {
+            return new CartesianPoint3D(model, 0, 0, 0);
+        }
+
+        public static CartesianPoint3D UnitX(IfcStore model)
+        {
+            return new CartesianPoint3D(model, 1, 0, 0);
+
+        }
+
+        public static CartesianPoint3D UnitY(IfcStore model)
+        {
+            return new CartesianPoint3D(model, 0, 1, 0);
+
+        }
+
+        public static CartesianPoint3D UnitZ(IfcStore model)
+        {
+            return new CartesianPoint3D(model, 0, 0, 1);
+
         }
     }
 }

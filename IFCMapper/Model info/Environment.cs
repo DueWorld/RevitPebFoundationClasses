@@ -24,12 +24,8 @@ namespace IFCMapper.Model_info
         private static readonly object padlock = new object();
         private Building building;
         private Project project;
-        private OwnerHistory ownerHistory;
         private Site site;
-        private Person person;
-        private Organization organization;
-        private PersonOrgRelation relation;
-        private Application application;
+
         private PlacementAxis3D projectAxis;
         private LocalPlacement sitePlacement;
         private LocalPlacement buildingPlacement;
@@ -41,12 +37,7 @@ namespace IFCMapper.Model_info
 
         public Building Building => building;
         public Project Project => project;
-        public OwnerHistory OwnerHistory => ownerHistory;
         public Site Site => site;
-        public Person Person => person;
-        public Organization Organization => organization;
-        public PersonOrgRelation Relation => relation;
-        public Application Application => application;
         public PlacementAxis3D ProjectAxis => projectAxis;
         public LocalPlacement SitePlacement => sitePlacement;
         public LocalPlacement BuildingPlacement => buildingPlacement;
@@ -79,7 +70,7 @@ namespace IFCMapper.Model_info
 
         private void Initialize(IfcStore model)
         {
-               units = new UnitAssignmentRelation(model);
+            units = new UnitAssignmentRelation(model);
             material = new Material(model, "S235J0");
 
             //creating main project axis
@@ -95,14 +86,14 @@ namespace IFCMapper.Model_info
 
             //creating site
             sitePlacement = new LocalPlacement(model, null, projectAxis);
-            site = new Site(model, ownerHistory, "Site", sitePlacement, IfcElementCompositionEnum.ELEMENT, 0);
+            site = new Site(model, "Site", sitePlacement, IfcElementCompositionEnum.ELEMENT, 0);
 
 
 
 
             PostalAddress post = new PostalAddress(model, "IN YOUR MOMMA ROOM");
             buildingPlacement = new LocalPlacement(model, sitePlacement, projectAxis);
-            building = new Building(model, ownerHistory, "Building", buildingPlacement, IfcElementCompositionEnum.ELEMENT, post);
+            building = new Building(model, "Building", buildingPlacement, IfcElementCompositionEnum.ELEMENT, post);
 
             stories = new List<BuildingStorey>();
 

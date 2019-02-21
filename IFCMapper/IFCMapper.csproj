@@ -90,7 +90,7 @@
     <Compile Include="Geomterical Entities\CartesianPoint3D.cs" />
     <Compile Include="Geomterical Entities\DirectionVector2D.cs" />
     <Compile Include="Geomterical Entities\DirectionVector3D.cs" />
-    <Compile Include="Geomterical Entities\ExtrudedCrossSections\CrossSection.cs" />
+    <Compile Include="TeklaModelObjects\RectangularCrossSection.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\ExtrudedAreaSolid.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\IProfile.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\PresentationAssignment.cs" />
@@ -101,7 +101,6 @@
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\GeometricRepresentationSubContext.cs" />
     <Compile Include="Geomterical Entities\LocalPlacement.cs" />
     <Compile Include="Geomterical Entities\PlacementAxis2D.cs" />
-    <Compile Include="ISchemaEntity.cs" />
     <Compile Include="Material Resources\Material.cs" />
     <Compile Include="Model info\Building.cs" />
     <Compile Include="Model info\BuildingStorey.cs" />
@@ -117,7 +116,8 @@
     <Compile Include="Geomterical Entities\PlacementAxis3D.cs" />
     <Compile Include="Model info\SIUnit.cs" />
     <Compile Include="Model Objects\IModelObject.cs" />
-    <Compile Include="Model Objects\PrimitiveColumn.cs" />
+    <Compile Include="TeklaModelObjects\ModelOptions.cs" />
+    <Compile Include="TeklaModelObjects\TeklaPlate.cs" />
     <Compile Include="Model Objects\ContainmentObject\ElementAssembly.cs" />
     <Compile Include="Model Objects\ModelTypes\PrimitiveColumnType.cs" />
     <Compile Include="Program.cs" />
