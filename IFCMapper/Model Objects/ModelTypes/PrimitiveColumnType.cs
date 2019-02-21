@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace IFCMapper.Geomterical_Entities.ExtrudedCrossSections
+namespace IFCMapper.Model_Objects.ModelType
 {
-    interface IProfileDefined
+    class PrimitiveColumnType
     {
+
     }
 }
