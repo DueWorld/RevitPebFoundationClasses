@@ -92,7 +92,7 @@
     <Compile Include="Geomterical Entities\DirectionVector3D.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\CrossSection.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\ExtrudedAreaSolid.cs" />
-    <Compile Include="Geomterical Entities\ExtrudedCrossSections\IProfileDefined.cs" />
+    <Compile Include="Geomterical Entities\ExtrudedCrossSections\IProfile.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\PresentationAssignment.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\ProductionDefinitionShape.cs" />
     <Compile Include="Geomterical Entities\ExtrudedCrossSections\RectangleProfile.cs" />
@@ -114,9 +114,9 @@
     <Compile Include="Model info\Site.cs" />
     <Compile Include="Geomterical Entities\PlacementAxis3D.cs" />
     <Compile Include="Model info\SIUnit.cs" />
-    <Compile Include="Model Objects\Column.cs" />
+    <Compile Include="Model Objects\PrimitiveColumn.cs" />
     <Compile Include="Model Objects\ContainmentObject\ElementAssembly.cs" />
-    <Compile Include="Model Objects\ModelTypes\ColumnType.cs" />
+    <Compile Include="Model Objects\ModelTypes\PrimitiveColumnType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Property Entities\PropertySet.cs" />
